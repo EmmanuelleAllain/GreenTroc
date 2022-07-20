@@ -1,5 +1,30 @@
-@import "~bootstrap/scss/bootstrap";
+
+
+/* ---------- REDEFINING BOOTSTRAP COLOURS ---------- */
+$primary: #1D3C45;
+$light: #FCF5EE;
+$secondary: #F9BA32;
+$dropdown-link-hover-bg: #FCF5EE;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 body {
-    background-color: lightgray;
+    background-color: white;
 }
+
+h1 {
+    color: $primary;
+}
+
+.header-img {
+    background-image: url("../images/bg-image.jpg");
+    background-position: center center;
+    background-size: cover;
+    height: 740px;
+}
+
+@import "~bootstrap/scss/bootstrap";

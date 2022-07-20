@@ -1,0 +1,46 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Accueil - Green Troc{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="header-img">
+            <div class="container">
+                <div class="row">
+                    <h1 class="text-center col-12 p-3">Prêtez et empruntez vos objets en quelques clics à Lyon et ses environs</h1>
+                </div>
+                <div class="row d-flex justify-content-end align-items-center">
+                    <p class="col-6 text-end">Pas envie d’acheter une perçeuse pour seulement quelques minutes d’utilisation ?
+    Nous avons la solution ! Notre plateforme te permet de trouver des objets à emprunter proche de chez toi, pour quelques heures ou plus. 
+    Comme ça en plus d’avoir une nouvelle déco, tu auras peut-être de nouveaux compagnons d’apéro dans ton quartier !</p>
+                </div>
+            </div>
+        </div>
+    </div>  
+</div>
+
+<div class="container-fluid">
+    <div class="row d-flex justify-content-around">
+        <div class="col-3 w-25"></div>
+        <div class="col-3 w-25"></div>
+        <div class="col-3 w-25"></div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row d-flex justify-content-center">
+        <div class="col-3">
+            <img class="img-fluid" src="{{ asset('build/images/box_money_icon.png') }}">
+        </div>
+        <div class="col-3">
+            <img class="img-fluid" src="{{ asset('build/images/verified_icon.png') }}">
+        </div>
+        <div class="col-3">
+            <img class="img-fluid" src="{{ asset('build/images/ecology_icon.png') }}">
+        </div>
+    </div>
+</div>
+
+{% endblock %}
