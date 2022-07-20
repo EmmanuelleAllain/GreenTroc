@@ -1,0 +1,25 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+<div class="container">
+    <div class="row">
+        <h1 class="m-3 text-center">{{item.name}}</h1>
+    </div>
+    <div class="row">
+        <img class="col-6" src="../uploads/{{ item.picture }}">
+        <div class="container col-6">
+            <div class="row">
+            <p>{{ item.description }}<p>
+            <p class="fst-italic">Catégorie : {{ item.category }}<p>
+            <p class="text-center">Cet article est proposé par 
+            {{ item.userWhoOffer.firstname }} {{ item.userWhoOffer.lastname }}</p>
+            <a class="btn btn-primary" href="#">Faire une demande</a>
+            </div>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center">
+        <a class="col-3 m-3 btn btn-secondary" href="{{ path('app_item')}}">Retour à la liste des objets</a>
+    </div>
+</div>
+{% endblock %}

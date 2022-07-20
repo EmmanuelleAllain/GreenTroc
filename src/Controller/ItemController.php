@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\ItemToBorrow;
+use App\Repository\ItemToBorrowRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,10 +17,19 @@ class ItemController extends AbstractController
     }
 
     #[Route('/tous-les-objets', name: 'app_item')]
-    public function index(): Response
+    public function index(ItemToBorrowRepository $itemToBorrowRepository): Response
     {
+        $items = $itemToBorrowRepository->findAll();
         return $this->render('item/index.html.twig', [
-            'controller_name' => 'ItemController',
+            'items' => $items,
+        ]);
+    }
+
+    #[Route('/{id}', name: 'app_item_show')]
+    public function show(ItemToBorrow $itemToBorrow): Response
+    {
+        return $this->render('item/show.html.twig', [
+            'item' => $itemToBorrow,
         ]);
     }
 
