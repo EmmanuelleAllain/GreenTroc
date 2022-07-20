@@ -6,22 +6,26 @@
     {% endif %}
 
     <form action="{{ path('app_login') }}" class="container-fluid mt-3" method="post">
-    <div class="row d-flex flex-column align-items-center">
-        <div class="col-4">
-            <label class="form-label" for="username">Adresse mail</label>
-            <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}"/>
+        <div class="row d-flex flex-column align-items-center">
+            <div class="col-4">
+                <label class="form-label" for="username">Adresse mail</label>
+                <input class="my-1 form-control" type="text" id="username" name="_username" value="{{ last_username }}"/>
+            </div>
+            <div class="col-4">
+                <label class="form-label" for="password">Mot de passe</label>
+                <input class="my-1 form-control" type="password" id="password" name="_password"/>
+            </div>
+            <button class="col-1 btn btn-primary m-2" type="submit">Se connecter</button>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        </div> 
+    </form>
+    <div class="container">
+        <div class="row d-flex flex-column align-items-center">
+            <p class="col-4 text-center">Vous n'avez pas encore de compte ?</p>
+            <a class="col-2" href="{{ path('app_register') }}"><button class="btn btn-secondary">Se créer un compte</button></a>
         </div>
-        <div class="col-4">
-            <label class="form-label" for="password">Mot de passe</label>
-            <input class="form-control" type="password" id="password" name="_password"/>
-        </div>
-        <button class="col-1 btn btn-primary m-2" type="submit">Se connecter</button>
-        <p class="col-4 mt-2 text-center">Vous n'avez pas encore de compte ?</p>
-        <button class="col-2 btn btn-secondary m-2">Se créer un compte</button>
     </div>
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
         {# If you want to control the URL the user is redirected to on success
         <input type="hidden" name="_target_path" value="/account"/> #}
-    </form>
+    
 {% endblock %}
