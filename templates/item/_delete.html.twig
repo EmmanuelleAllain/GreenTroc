@@ -1,0 +1,11 @@
+<div class="container">
+    <div class="row d-flex justify-content-center m-3">
+        <div class="col-6 d-flex justify-content-center">
+            <form method="post" action="{{ path('app_item_delete', {'id': item.id}) }}"
+                  onsubmit="return confirm('Êtes-vous sûr(e) de vouloir supprimer cet objet ?');">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ item.id) }}">
+                <button class="btn btn-secondary text-white">Supprimer</button>
+            </form>
+        </div>
+    </div>
+</div>

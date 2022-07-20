@@ -7,8 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ItemToBorrowRepository::class)]
+#[Vich\Uploadable]
 class ItemToBorrow
 {
     #[ORM\Id]
@@ -28,12 +32,24 @@ class ItemToBorrow
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $picture = null;
 
+    #[Vich\UploadableField(mapping: 'images', fileNameProperty: 'picture')]
+    #[Assert\File(
+        maxSize: '1M',
+        mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
+        mimeTypesMessage: 'Ce fichier doit être une image',
+        uploadFormSizeErrorMessage: 'Votre photo ne peut pas dépasser 1Mo'
+    )]
+    private ?File $pictureFile = null;
+
     #[ORM\ManyToOne(inversedBy: 'itemToBorrows')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $userWhoOffer = null;
 
     #[ORM\OneToMany(mappedBy: 'borrowedItem', targetEntity: Borrow::class, orphanRemoval: true)]
     private Collection $borrows;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $updatedAt = null;
 
     public function __construct()
     {
@@ -93,6 +109,22 @@ class ItemToBorrow
         return $this;
     }
 
+    public function setPictureFile(?File $pictureFile = null): void
+    {
+        $this->pictureFile = $pictureFile;
+
+        if (null !== $pictureFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getPictureFile(): ?File
+    {
+        return $this->pictureFile;
+    }
+
     public function getUserWhoOffer(): ?User
     {
         return $this->userWhoOffer;
@@ -131,6 +163,18 @@ class ItemToBorrow
                 $borrow->setBorrowedItem(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

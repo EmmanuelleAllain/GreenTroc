@@ -1,0 +1,28 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<h1 class="text-center text-primary mt-3">Ajouter un objet</h1>
+<h2 class="text-center m-1">Vous avez un objet dont vous vous servez peu ? Postez-le sur la plateforme, il peut intéresser vos voisins !</h2>
+
+<div class="container-fluid">
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+     <div class="row d-flex flex-column align-items-center">
+        <div class="col-11 col-md-6">
+        {{ form_row(form.name) }}
+        </div>
+        <div class="col-11 col-md-6">
+        {{ form_row(form.category) }}
+        </div>
+        <div class="col-11 col-md-6">
+        {{ form_row(form.description) }}
+        </div>
+        <div class="col-11 col-md-6">
+        {{ form_row(form.pictureFile) }}
+        </div>
+        <div class="col-5 col-md-2">
+        <button type="submit" class="btn btn-primary">Ajouter mon objet</button>
+        </div>
+    </div>
+    {{ form_end(form) }}
+</div>
+{% endblock %}
