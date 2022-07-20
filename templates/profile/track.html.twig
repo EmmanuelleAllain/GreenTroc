@@ -1,0 +1,70 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<div class="accordion m-3" id="accordionExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingOne">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        Mes prêts à venir
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        {% for item in items %}
+          {% for borrow in item.borrows %}
+          <div class="row d-flex justify-content-between">
+            <h3 class="col-3">{{ borrow.borrowedItem.name }}</h3>
+            <p class="col-2">{{ borrow.date | format_date('full',locale='fr')}}</p>
+            <p class="col-2">{{ borrow.userWhoBorrow.firstname }} {{ borrow.userWhoBorrow.lastname | slice(0,1) }}.</p>
+            <p class="col-2">{{ borrow.status }}</p>
+            <div class="col-3">
+            {% if borrow.status == 'en attente' %}
+            <button class="btn btn-primary">Valider</button>
+            <button class="btn btn-danger">Refuser</button>
+            {% endif %}
+            </div>
+          </div>
+          {% endfor %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingTwo">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        Mes emprunts à venir
+      </button>
+    </h2>
+    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+      <div class="accordion-body container-fluid">
+        {% for borrow in borrows %}
+        <div class="row d-flex justify-content-between">
+          <h3 class="col-3">{{ borrow.borrowedItem.name }}</h3>
+          <p class="col-2">{{ borrow.date | format_date('full',locale='fr')}}</p>
+          {% if borrow.status == 'validé' %}<p class="col-2 badge bg-primary">
+          {% elseif borrow.status == 'annulé' %}<p class="col-2 badge bg-danger">
+          {% elseif borrow.status == 'en attente' %}<p class="col-2 badge bg-warning">
+          {% endif %}{{ borrow.status }}</p>
+        </div>
+        <div class="row">
+          <p>Propriétaire de l'objet : {{ borrow.borrowedItem.userWhoOffer.firstname }} {{ borrow.borrowedItem.userWhoOffer.firstname }}</p>
+          <p>Adresse où récupérer l'objet : {{ borrow.borrowedItem.userWhoOffer.address }} {{ borrow.borrowedItem.userWhoOffer.postcode }} {{ borrow.borrowedItem.userWhoOffer.city }}<p>
+          <hr>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingThree">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        Historique de mes prêts et emprunts
+      </button>
+    </h2>
+    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

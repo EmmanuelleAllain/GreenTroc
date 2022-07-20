@@ -37,7 +37,7 @@ class ItemToBorrowFixtures extends Fixture implements DependentFixtureInterface
                 'poussette.jpg', 'escabeau.jpg', 'perceuse.jpg', 'peinture.jpg'
             ]));
             $itemToBorrow->setUserWhoOffer($this->getReference('user_' . $faker->numberBetween(0,4)));
-            //$this->addReference('itemToBorrow_' . $i, $itemToBorrow);
+            $this->addReference('itemToBorrow_' . $j, $itemToBorrow);
             $manager->persist($itemToBorrow);
         $manager->flush();
         }

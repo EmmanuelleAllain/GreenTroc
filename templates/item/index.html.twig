@@ -6,8 +6,8 @@
 <div class="container mt-3">
     <div class="row d-flex justify-content-center">
     {% for item in items %}
-        <div class="card col-5 col-md-3 m-2">
-            <img src="../uploads/{{ item.picture }}" class="card-img-top" alt="photo de l'objet">
+        <div class="card shadow col-5 col-md-3 m-2">
+            <img src="../uploads/{{ item.picture }}" class="card-img-top mt-2" alt="photo de l'objet">
             <div class="card-body">
                 <h3 class="card-title">{{ item.name }}</h3>
                 <p class="card-text">{{ item.category }}</p>

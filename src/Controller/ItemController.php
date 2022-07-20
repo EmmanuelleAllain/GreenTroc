@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\ItemToBorrow;
 use App\Entity\User;
 use App\Form\ItemToBorrowType;
+use App\Repository\BorrowRepository;
 use App\Repository\ItemToBorrowRepository;
 use App\Repository\UserRepository;
 use Exception;
@@ -41,7 +42,7 @@ class ItemController extends AbstractController
             throw $this->createAccessDeniedException();
         }
         $myitems = $user->getItemToBorrows();
-        return $this->render('item/profile_index.html.twig', [
+        return $this->render('profile/index.html.twig', [
             'myitems' => $myitems,
         ]);
     }
@@ -87,5 +88,22 @@ class ItemController extends AbstractController
             }
         }
         return $this->redirectToRoute('app_myitem', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/mon-suivi', name: 'app_item_track')]
+    public function track(): Response
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+        if ($user == null) {
+            throw $this->createAccessDeniedException();
+        }
+        $borrows = $user->getBorrows();
+        $itemToBorrow = $user->getItemToBorrows();
+
+        return $this->render('profile/track.html.twig', [
+            'borrows' => $borrows,
+            'items' => $itemToBorrow
+        ]);
     }
 }

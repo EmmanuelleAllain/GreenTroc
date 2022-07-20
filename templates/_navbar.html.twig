@@ -1,7 +1,7 @@
 <nav class="navbar navbar-dark navbar-expand-lg bg-primary pb-3">
 	<div class="container-fluid">
 		<a href="/"><img class="logo-top-nav img-fluid" src="{{ asset('build/images/logo.png') }}" alt="Logo Green Troc"></a>
-		<a class="navbar-brand" id="navbar-title" href="/">Green Troc
+		<a class="navbar-brand" id="navbar-title" href="/"><h2 class="ms-2">Green <br>Troc</h2>
 		</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
 			<span class="navbar-toggler-icon"></span>
@@ -31,7 +31,7 @@
 							<ul class="dropdown-menu dropdown-menu-lg-end">
 								<li><a href="{{ path('app_myitem', {id:app.user.id}) }}"class="dropdown-item">Mes objets en ligne</a></li>
 								<li><a href="{{ path('app_item_new') }}"class="dropdown-item">Ajouter un objet</a></li>
-								<li><a href="{{ path('app_logout') }}"class="dropdown-item">Suivi</a></li>
+								<li><a href="{{ path('app_item_track') }}"class="dropdown-item">Mon suivi</a></li>
 								<li><a href="{{ path('app_logout') }}"class="dropdown-item">Se déconnecter</a></li>
 							</ul>
 						</div>

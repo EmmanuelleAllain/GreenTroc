@@ -25,6 +25,9 @@ class Borrow
     #[ORM\JoinColumn(nullable: false)]
     private ?User $userWhoBorrow = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $status = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -62,6 +65,18 @@ class Borrow
     public function setUserWhoBorrow(?User $userWhoBorrow): self
     {
         $this->userWhoBorrow = $userWhoBorrow;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }
