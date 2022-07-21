@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -29,8 +30,15 @@ class RegistrationFormType extends AbstractType
             ->add('address', TextType::class, [
                 'label' => 'Adresse'
             ])
-            ->add('postcode', IntegerType::class, [
-                'label' => 'Code postal'
+            ->add('postcode', NumberType::class, [
+                'label' => 'Code postal',
+                'constraints' => [
+                    new Length([
+                        'min' => 5,
+                        'max' => 5,
+                        'minMessage' => 'Le code postal doit comporter 5 chiffres.',
+                    ]),
+                ]
             ])
             ->add('city', TextType::class, [
                 'label' => 'Ville'

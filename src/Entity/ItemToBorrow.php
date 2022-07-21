@@ -21,12 +21,14 @@ class ItemToBorrow
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Ce champ ne peut pas être vide')]
     private ?string $name = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $category = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Assert\NotBlank(message: 'Ce champ ne peut pas être vide')]
     private ?string $description = null;
 
     #[ORM\Column(length: 255, nullable: true)]

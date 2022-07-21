@@ -39,7 +39,6 @@ class ItemToBorrowType extends AbstractType
                 'allow_delete' => true,
                 'download_uri' => true,
             ])
-            //->add('userWhoOffer')
         ;
     }
 

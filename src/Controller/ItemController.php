@@ -11,12 +11,11 @@ use App\Repository\ItemToBorrowRepository;
 use App\Repository\UserRepository;
 use DateTime;
 use Exception;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
-use function PHPUnit\Framework\throwException;
 
 class ItemController extends AbstractController
 {
@@ -49,6 +48,7 @@ class ItemController extends AbstractController
         return new Response($idsArrayJson);
     }
 
+    #[IsGranted('ROLE_USER')]
     #[Route('/mes-objets/{id}', name: 'app_myitem')]
     public function myIndex(UserRepository $userRepository): Response
     {
@@ -71,6 +71,7 @@ class ItemController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_USER')]
     #[Route('/nouvel-objet', name: 'app_item_new')]
     public function new(ItemToBorrowRepository $itemToBorrowRepository, Request $request): Response
     {
@@ -93,6 +94,7 @@ class ItemController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_USER')]
     #[Route('/delete/{id}', name: 'app_item_delete')]
     public function delete(Request $request, ItemToBorrow $itemToBorrow, ItemToBorrowRepository $itemToBorrowRepository): Response
     {
@@ -106,6 +108,7 @@ class ItemController extends AbstractController
         return $this->redirectToRoute('app_myitem', [], Response::HTTP_SEE_OTHER);
     }
 
+    #[IsGranted('ROLE_USER')]
     #[Route('/mon-suivi', name: 'app_item_track')]
     public function track(): Response
     {
@@ -123,6 +126,7 @@ class ItemController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_USER')]
     #[Route('/ma-demande/objet/{id}', name: 'app_item_ask')]
     public function ask(ItemToBorrow $itemToBorrow, BorrowRepository $borrowRepository): Response
     {
@@ -150,6 +154,7 @@ class ItemController extends AbstractController
         return $this->redirectToRoute('app_item_show', ['id' => $itemToBorrow->getId()]);
     }
 
+    #[IsGranted('ROLE_USER')]
     #[Route('/validation/{id}', name: 'app_item_validation')]
     public function valid(Borrow $borrow, BorrowRepository $borrowRepository): Response
     {
@@ -158,6 +163,7 @@ class ItemController extends AbstractController
         return $this->redirectToRoute('app_item_track');
     }
 
+    #[IsGranted('ROLE_USER')]
     #[Route('/refusal/{id}', name: 'app_item_refusal')]
     public function refuse(Borrow $borrow, BorrowRepository $borrowRepository): Response
     {
