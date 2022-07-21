@@ -12,9 +12,10 @@
             <div class="row">
             <p>{{ item.description }}<p>
             <p class="fst-italic">Catégorie : {{ item.category }}<p>
+            {% if app.user != item.userWhoOffer %}
             <p class="text-center">Cet article est proposé par 
             {{ item.userWhoOffer.firstname }} {{ item.userWhoOffer.lastname }}</p>
-            {% if app.user != item.userWhoOffer %}
+            <p class="text-center">{{ item.userWhoOffer.address }} {{ item.userWhoOffer.postcode }} {{ item.userWhoOffer.city }}</p>
             <form class="container" action="{{ path('app_item_ask', {id:item.id})}}" method="post">
                 <div class="row d-flex justify-content-center">
                     <p class="text-center">Il vous intéresse ? Faites vite une demande pour savoir s'il est disponible !</p>

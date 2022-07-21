@@ -3,10 +3,27 @@
 {% block title %}Chercher un objet{% endblock %}
 
 {% block body %}
+
+<div class="container shadow rounded w-75 bg-secondary mx-auto my-3">
+    <div class="row d-flex justify-content-center align-items-center p-3">
+        <div class="col-12 col-md-3">
+            <label for="name" class="form-label">Je cherche...</label>
+            <input name="name" type="text" id="keyword" class="form-control"></input>
+        </div>
+        <div class="col-12 col-md-3">
+            <label for="date" class="form-label">Date</label>
+            <input name="date" type="date" id="date" class="form-control"></input>
+        </div>
+        <div class="col-12 col-md-3 my-1">
+            <button class="btn btn-primary shadow">Rechercher</button>
+        </div>
+    </div>
+</div>
+
 <div class="container mt-3">
     <div class="row d-flex justify-content-center">
     {% for item in items %}
-        <div class="card shadow col-5 col-md-3 m-2">
+        <div class="card shadow col-5 col-md-3 m-2" id="{{ item.id }}">
             <img src="../uploads/{{ item.picture }}" class="card-img-top mt-2" alt="photo de l'objet">
             <div class="card-body">
                 <h3 class="card-title">{{ item.name }}</h3>

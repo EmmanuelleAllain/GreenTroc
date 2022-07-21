@@ -34,9 +34,11 @@ class UserFixtures extends Fixture
             );
             $user->setPassword($hashedPassword);
             $user->setRoles(['ROLE_USER']);
-            $user->setAddress($faker->address());
-            $user->setPostcode($faker->randomElement(['69003', '69006', '69100']));
-            $user->setCity($faker->city());
+            $user->setAddress($faker->randomElement([
+                '12 rue Francis Pressensé', '20 rue Antoine Charial', '12 rue Delandine', '400 rue André Philip', '20 avenue des Brotteaux', '14 boulevard de l\'opéra'
+            ]));
+            $user->setPostcode($faker->randomElement([69003, 69006, 69100]));
+            $user->setCity($faker->randomElement(['Lyon', 'Villeurbanne']));
             $this->addReference('user_' . $i, $user);
 
             $manager->persist($user);

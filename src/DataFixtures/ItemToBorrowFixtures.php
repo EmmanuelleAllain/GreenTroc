@@ -17,7 +17,7 @@ class ItemToBorrowFixtures extends Fixture implements DependentFixtureInterface
             $itemToBorrow = new ItemToBorrow();
             $itemToBorrow->setName($faker->unique()->randomElement([
                 'Perçeuse',
-                'Kit de peinture (pinceaux, rouleaux et bâches',
+                'Kit de peinture (pinceaux, rouleaux et bâches)',
                 'Siège auto 15 mois à 4 ans',
                 'Poussette',
                 'Gaufrier',

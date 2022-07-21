@@ -11,7 +11,6 @@ use App\Repository\ItemToBorrowRepository;
 use App\Repository\UserRepository;
 use DateTime;
 use Exception;
-use LDAP\Result;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,9 +30,23 @@ class ItemController extends AbstractController
     public function index(ItemToBorrowRepository $itemToBorrowRepository): Response
     {
         $items = $itemToBorrowRepository->findAll();
+
         return $this->render('item/index.html.twig', [
             'items' => $items,
         ]);
+    }
+
+    #[Route('/tous-les-objets/{keyword}', name: 'app_item_search')]
+    public function search(ItemToBorrowRepository $itemToBorrowRepository, string $keyword): Response
+    {
+        $itemToBorrow = $itemToBorrowRepository->findItemByKeyword($keyword);
+        $idsArray = [];
+        foreach ($itemToBorrow as $item) {
+            $id = $item->getId();
+            $idsArray[] = $id;
+        }
+        $idsArrayJson = json_encode($idsArray);
+        return new Response($idsArrayJson);
     }
 
     #[Route('/mes-objets/{id}', name: 'app_myitem')]
