@@ -102,10 +102,12 @@ class ItemController extends AbstractController
             if ($this->isCsrfTokenValid('delete' . $itemToBorrow->getId(), $request->request->get('_token'))) {
                 $itemToBorrowRepository->remove($itemToBorrow, true);
             } else {
-                throw new Exception('Impossible de supprimer le gateau');
+                throw new Exception('Impossible de supprimer cet objet');
             }
         }
-        return $this->redirectToRoute('app_myitem', [], Response::HTTP_SEE_OTHER);
+        /** @var User $user */
+        $user = $this->getUser();
+        return $this->redirectToRoute('app_myitem', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
     }
 
     #[IsGranted('ROLE_USER')]
