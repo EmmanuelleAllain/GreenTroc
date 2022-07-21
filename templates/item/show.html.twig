@@ -14,7 +14,24 @@
             <p class="fst-italic">Catégorie : {{ item.category }}<p>
             <p class="text-center">Cet article est proposé par 
             {{ item.userWhoOffer.firstname }} {{ item.userWhoOffer.lastname }}</p>
-            <a class="btn btn-primary" href="#">Faire une demande</a>
+            {% if app.user != item.userWhoOffer %}
+            <form class="container" action="{{ path('app_item_ask', {id:item.id})}}" method="post">
+                <div class="row d-flex justify-content-center">
+                    <p class="text-center">Il vous intéresse ? Faites vite une demande pour savoir s'il est disponible !</p>
+                </div>
+                <div class="row d-flex justify-content-center">
+                    <input class="col-4 m-1" name="askedDate" type="date"></input>
+                    <button class="col-4 m-1 btn btn-primary" type="submit">Faire une demande</button>
+                </div>
+            </form>
+            {% for category, messages in app.flashes %}
+                {% for message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endfor %}
+            {% endif %}
             </div>
         </div>
     </div>

@@ -21,7 +21,7 @@ class BorrowFixtures extends Fixture implements DependentFixtureInterface
                         $borrow->setBorrowedItem($this->getReference('itemToBorrow_' . $k));
                         $borrow->setUserWhoBorrow($this->getReference('user_' . $j));
                         $borrow->setStatus($faker->randomElement([
-                            'en attente', 'validé', 'annulé'
+                            'En attente', 'Validé', 'Refusé'
                         ]));
                         $manager->persist($borrow);
                         $manager->flush();
