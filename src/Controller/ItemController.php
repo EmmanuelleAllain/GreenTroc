@@ -11,6 +11,7 @@ use App\Repository\ItemToBorrowRepository;
 use App\Repository\UserRepository;
 use DateTime;
 use Exception;
+use LDAP\Result;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -134,5 +135,21 @@ class ItemController extends AbstractController
             }
         }
         return $this->redirectToRoute('app_item_show', ['id' => $itemToBorrow->getId()]);
+    }
+
+    #[Route('/validation/{id}', name: 'app_item_validation')]
+    public function valid(Borrow $borrow, BorrowRepository $borrowRepository): Response
+    {
+        $borrow->setStatus('Validé');
+        $borrowRepository->add($borrow, true);
+        return $this->redirectToRoute('app_item_track');
+    }
+
+    #[Route('/refusal/{id}', name: 'app_item_refusal')]
+    public function refuse(Borrow $borrow, BorrowRepository $borrowRepository): Response
+    {
+        $borrow->setStatus('Refusé');
+        $borrowRepository->add($borrow, true);
+        return $this->redirectToRoute('app_item_track');
     }
 }
