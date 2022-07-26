@@ -22,7 +22,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 180, unique: true)]
     #[Assert\NotBlank(message: 'Ce champ ne peut pas être vide')]
-    #[Assert\Email('Cet email n\est pas conforme.')]
+    #[Assert\Email(message:'Cet email n\'est pas conforme.')]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -32,7 +32,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
-    #[Assert\NotBlank(message: 'Ce champ ne peut pas être vide')]
+    //#[Assert\NotBlank(message: 'Ce champ ne peut pas être vide')]
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
