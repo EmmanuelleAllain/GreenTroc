@@ -3,6 +3,7 @@
 {% block body %}
 
 <div class="container">
+    <p class="d-none" name="id" id="itemId">{{ item.id }}</p>
     <div class="row">
         <h1 class="m-3 text-center">{{item.name}}</h1>
     </div>
@@ -21,7 +22,7 @@
                     <p class="text-center">Il vous intéresse ? Faites vite une demande pour savoir s'il est disponible !</p>
                 </div>
                 <div class="row d-flex justify-content-center">
-                    <input class="col-4 m-1" name="askedDate" type="date"></input>
+                    <input class="col-4 m-1" name="askedDate" id="calendar-input" type="text"></input>
                     <button class="col-4 m-1 btn btn-primary" type="submit">Faire une demande</button>
                 </div>
             </form>
@@ -40,4 +41,9 @@
         <a class="col-6 col-md-3 m-3 btn btn-secondary" href="{{ path('app_item')}}">Retour à la liste des objets</a>
     </div>
 </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('calendar') }}
+    {{ encore_entry_script_tags('app') }}
 {% endblock %}

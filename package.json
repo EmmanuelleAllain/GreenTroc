@@ -21,6 +21,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "js-datepicker": "^5.18.0",
         "loader": "^2.1.1",
         "saas": "^1.0.0"
     }

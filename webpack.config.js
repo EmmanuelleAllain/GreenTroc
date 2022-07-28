@@ -34,6 +34,7 @@ Encore
      */
     .addEntry('app', './assets/app.js')
     .addEntry('search', './assets/scripts/script.js')
+    .addEntry('calendar', './assets/scripts/calendar.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')

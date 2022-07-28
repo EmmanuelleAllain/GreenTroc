@@ -66,9 +66,33 @@ class ItemController extends AbstractController
     #[Route('/objet/{id}', name: 'app_item_show')]
     public function show(ItemToBorrow $itemToBorrow): Response
     {
+
         return $this->render('item/show.html.twig', [
             'item' => $itemToBorrow,
         ]);
+    }
+
+    //route to disable dates on the calendar
+    #[Route('/disableDates/{id}', name: 'app_disable_dates')]
+    public function disableDates(ItemToBorrow $itemToBorrow, BorrowRepository $borrowRepository): Response
+    {
+        $borrows = $borrowRepository->findBy([
+            'borrowedItem' => $itemToBorrow
+        ]);
+        $dates = [];
+
+        // remove from the array all the dates with refuse status, because they can be available
+        for ($i = 0; $i < count($borrows); $i++) {
+            if ($borrows[$i]->getStatus() === "Refusé") {
+                unset($borrows[$i]); 
+            }
+        }
+
+        foreach ($borrows as $borrow) {
+            $dates[] = $borrow->getDate();
+        }
+        $disableDates = json_encode($dates);
+        return new Response($disableDates);
     }
 
     #[IsGranted('ROLE_USER')]
