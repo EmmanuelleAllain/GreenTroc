@@ -1,7 +1,6 @@
 // make sure the user cannot ask for a date before tomorrow
 const today = new Date();
 today.setDate(today.getDate() + 1);
-<<<<<<< HEAD
 const formatedToday = today.toLocaleDateString().split('/').reverse().join('-')
 
 document.getElementById('calendar-input').setAttribute('min', formatedToday);
@@ -12,7 +11,6 @@ sixMonthsFromNow.setMonth(sixMonthsFromNow.getMonth() + 6)
 const formatedMaxDate = sixMonthsFromNow.toLocaleDateString().split('/').reverse().join('-');
 
 document.getElementById('calendar-input').setAttribute('max', formatedMaxDate);
-=======
 //const formatedToday = today.toLocaleDateString().split('/').reverse().join('-')
 
 //document.getElementById('calendar-input').setAttribute('min', formatedToday);
@@ -54,4 +52,3 @@ disabledDates: [
     new Date(2022, 6, 30) // format : month is the second parameter and start to 0
 ],
 });
->>>>>>> 84c385fa9effdee46be8ce47325cf3482224029f
