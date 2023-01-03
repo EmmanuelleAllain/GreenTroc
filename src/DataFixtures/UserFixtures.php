@@ -23,6 +23,18 @@ class UserFixtures extends Fixture
     {
         $faker = Factory::create('fr_FR');
 
+        $admin = new User();
+        $admin->setFirstname('admin');
+        $admin->setLastName('admin');
+        $admin->setEmail('admin@admin.fr');
+        $hashedPassword = $this->passwordHasher->hashPassword(
+                $admin,
+                'admin'
+            );
+        $admin->setPassword($hashedPassword);
+        $admin->setRoles(['ROLE_ADMIN']);
+        $manager->persist($admin);
+
         for ($i = 0; $i < 5; $i++) {
             $user = new User();
             $user->setFirstname($faker->firstName());

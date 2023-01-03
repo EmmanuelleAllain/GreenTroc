@@ -14,7 +14,7 @@
           {% for borrow in item.borrows %}
           <div class="row d-flex justify-content-between">
             <h3 class="col-3">{{ borrow.borrowedItem.name }}</h3>
-            <p class="col-2">{{ borrow.date | format_date('full',locale='fr')}}</p>
+            <p class="col-2">{{ borrow.date | format_date('full',locale='fr')}}</p> {# this throws an error, need to be fixed | format_date('full',locale='fr') #} 
             <p class="col-2">{{ borrow.userWhoBorrow.firstname }} {{ borrow.userWhoBorrow.lastname | slice(0,1) }}.</p>
             <p class="col-2">{{ borrow.status }}</p>
             <div class="col-3">
