@@ -13,6 +13,7 @@ use DateTime;
 use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -38,18 +39,12 @@ class ItemController extends AbstractController
     #[Route('/tous-les-objets/{keyword}', name: 'app_item_search')]
     public function search(ItemToBorrowRepository $itemToBorrowRepository, string $keyword): Response
     {
-        $itemToBorrow = $itemToBorrowRepository->findItemByKeyword($keyword);
-        $idsArray = [];
-        foreach ($itemToBorrow as $item) {
-            $id = $item->getId();
-            $idsArray[] = $id;
-        }
-        $idsArrayJson = json_encode($idsArray);
-        return new Response($idsArrayJson);
+        $itemToBorrow = $itemToBorrowRepository->findIdsItemByKeyword($keyword);
+        return new JsonResponse($itemToBorrow);
     }
 
     #[IsGranted('ROLE_USER')]
-    #[Route('/mes-objets/{id}', name: 'app_myitem')]
+    #[Route('/mes-objets', name: 'app_myitem')]
     public function myIndex(UserRepository $userRepository): Response
     {
         /** @var User $user */

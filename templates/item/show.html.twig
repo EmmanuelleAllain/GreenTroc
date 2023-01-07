@@ -22,7 +22,7 @@
                     <p class="text-center">Il vous intéresse ? Faites vite une demande pour savoir s'il est disponible !</p>
                 </div>
                 <div class="row d-flex justify-content-center">
-                    <input class="col-4 m-1" name="askedDate" id="calendar-input" type="text"></input>
+                    <input class="col-4 m-1" name="askedDate" id="calendar-input" type="date"></input>
                     <button class="col-4 m-1 btn btn-primary" type="submit">Faire une demande</button>
                 </div>
             </form>
@@ -43,7 +43,6 @@
 </div>
 {% endblock %}
 
-{% block javascripts %}
+{# {% block javascripts %}
     {{ encore_entry_script_tags('calendar') }}
-    {{ encore_entry_script_tags('app') }}
-{% endblock %}
+{% endblock %} #}

@@ -33,6 +33,8 @@ class UserFixtures extends Fixture
             );
         $admin->setPassword($hashedPassword);
         $admin->setRoles(['ROLE_ADMIN']);
+        $admin->setPostcode(69003);
+        $admin->setCity('Lyon');
         $manager->persist($admin);
 
         for ($i = 0; $i < 5; $i++) {

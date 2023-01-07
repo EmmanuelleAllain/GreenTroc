@@ -39,14 +39,20 @@ class ItemToBorrowRepository extends ServiceEntityRepository
         }
     }
 
-    public function findItemByKeyword(string $keyword): mixed
+    public function findIdsItemByKeyword(string $keyword): mixed
     {
         $queryBuilder = $this->createQueryBuilder('i')
             ->where('i.name LIKE :name')
             ->setParameter('name', '%' . $keyword . '%')
             ->getQuery();
 
-        return $queryBuilder->getResult();
+        $itemToBorrow = $queryBuilder->getResult();
+        $idsArray = [];
+        foreach ($itemToBorrow as $item) {
+            $id = $item->getId();
+            $idsArray[] = $id;
+        }
+        return $idsArray;
     }
 
 //    /**

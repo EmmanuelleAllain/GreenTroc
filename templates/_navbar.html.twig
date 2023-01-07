@@ -29,7 +29,7 @@
 								{{ app.user.firstname }}
 							</button>
 							<ul class="dropdown-menu dropdown-menu-lg-end">
-								<li><a href="{{ path('app_myitem', {id:app.user.id}) }}"class="dropdown-item">Mes objets en ligne</a></li>
+								<li><a href="{{ path('app_myitem') }}"class="dropdown-item">Mes objets en ligne</a></li>
 								<li><a href="{{ path('app_item_new') }}"class="dropdown-item">Ajouter un objet</a></li>
 								<li><a href="{{ path('app_item_track') }}"class="dropdown-item">Mon suivi</a></li>
 								<li><a href="{{ path('app_logout') }}"class="dropdown-item">Se déconnecter</a></li>
