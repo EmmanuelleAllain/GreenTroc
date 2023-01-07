@@ -6,6 +6,7 @@ use App\Entity\Borrow;
 use App\Entity\ItemToBorrow;
 use App\Entity\User;
 use App\Form\ItemToBorrowType;
+use App\Form\UserType;
 use App\Repository\BorrowRepository;
 use App\Repository\ItemToBorrowRepository;
 use App\Repository\UserRepository;
@@ -41,6 +42,32 @@ class ItemController extends AbstractController
     {
         $itemToBorrow = $itemToBorrowRepository->findIdsItemByKeyword($keyword);
         return new JsonResponse($itemToBorrow);
+    }
+
+    #[IsGranted('ROLE_USER')]
+    #[Route('/mon-profil', name: 'app_myprofile')]
+    public function myProfile(Request $request, UserRepository $userRepository): Response
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+        if ($user == null) {
+            throw $this->createAccessDeniedException();
+        }
+        $user = $this->getUser();
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($user == null || !$user->getRoles('ROLE_ADMIN')) {
+                throw $this->createAccessDeniedException();
+            }
+            $userRepository->add($user, true);
+        }
+
+        return $this->renderForm('profile/profile.html.twig', [
+            'form' => $form,
+            'user' => $user
+        ]);
     }
 
     #[IsGranted('ROLE_USER')]

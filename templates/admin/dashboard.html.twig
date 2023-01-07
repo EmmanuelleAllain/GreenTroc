@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tableau de bord{% endblock %}
+
+{% block body %}
+
+<div class="container shadow rounded w-75 bg-secondary mx-auto my-3">
+    <div class="row d-flex justify-content-center align-items-center p-3">
+        <div class="col-12 col-md-3">
+            <p class="text-center">Nombre d'objets sur la plateforme</p>
+            <p class="text-center">{{ items | length}}</p>
+            <p class="text-center">Nombre d'utilisateurs inscrits</p>
+            <p class="text-center">{{ users | length}}</p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

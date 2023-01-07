@@ -1,0 +1,12 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<h1 class="text-center text-primary mt-3">Editer mes informations personnelles</h1>
+<h2 class="text-center m-1">Consultez et modifier vos informations</h2>
+
+<div class="container-fluid">
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+        {{ form_widget(form) }}
+    {{ form_end(form) }}
+</div>
+{% endblock %}

@@ -35,6 +35,7 @@ class UserFixtures extends Fixture
         $admin->setRoles(['ROLE_ADMIN']);
         $admin->setPostcode(69003);
         $admin->setCity('Lyon');
+        $admin->setStatus(true);
         $manager->persist($admin);
 
         for ($i = 0; $i < 5; $i++) {
@@ -53,6 +54,7 @@ class UserFixtures extends Fixture
             ]));
             $user->setPostcode($faker->randomElement([69003, 69006, 69100]));
             $user->setCity($faker->randomElement(['Lyon', 'Villeurbanne']));
+            $user->setStatus(true);
             $this->addReference('user_' . $i, $user);
 
             $manager->persist($user);

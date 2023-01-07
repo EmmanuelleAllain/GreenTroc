@@ -56,6 +56,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $city = null;
 
+    #[ORM\Column(nullable: false)]
+    private bool $status;
+
     #[ORM\OneToMany(mappedBy: 'userWhoOffer', targetEntity: ItemToBorrow::class, orphanRemoval: true)]
     private Collection $itemToBorrows;
 
@@ -254,6 +257,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $borrow->setUserWhoBorrow(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * Get the value of status
+     */ 
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * Set the value of status
+     *
+     * @return  self
+     */ 
+    public function setStatus($status)
+    {
+        $this->status = $status;
 
         return $this;
     }
