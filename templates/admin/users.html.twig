@@ -10,7 +10,7 @@
         <div class="col">
         {# Todo : add id in profile route so the admin can see users' profile #}
             <p class="text bold">{{ user.lastname }} {{ user.firstname }} - Nombre d'objets en ligne : {{user.itemToBorrows | length}}</p>
-            <a href="{{ path('app_myprofile', {id:user.id}) }}"><button class="btn btn-secondary shadow">Voir le profil</button</a>
+            <a href="{{ path('app_myprofile', {id:user.id}) }}"><button class="btn btn-secondary shadow">Voir le profil</button></a>
             <button class="btn btn-danger shadow">Bloquer</button>
         </div>
     </div>

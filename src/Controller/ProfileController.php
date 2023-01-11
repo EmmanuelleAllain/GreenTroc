@@ -24,11 +24,12 @@ class ProfileController extends AbstractController {
     public function myProfile(User $user, Request $request, UserRepository $userRepository): Response
     {
         /** @var User $user */
-        $user = $this->getUser();
-        if ($user == null) {
+        $currentUser = $this->getUser();
+      
+        if ($user != $currentUser|| !$this->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException();
         }
-        //$user = $this->getUser();
+        
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
