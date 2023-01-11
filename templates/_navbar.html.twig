@@ -20,18 +20,30 @@
 						<a class="nav-link" href="{{ path('app_item')}}">Je cherche...</a>
 					</li>
 					<li class="nav-item m-2">
-						<a class="nav-link" {% if app.user %}href="{{ path('app_item_new') }}"{% else %}href="{{ path('app_login') }}" {% endif %}>Proposer mon objet</a>
+						<a class="nav-link" {% if app.user %}href="{{ path('app_myprofile_newitem') }}"{% else %}href="{{ path('app_login') }}" {% endif %}>Proposer mon objet</a>
 					</li>
 					<li class="nav-item m-2">
-						{% if app.user %}
+						{% if app.user and 'ROLE_ADMIN' not in app.user.roles %}
 						<div class="btn-group">
 							<button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
 								{{ app.user.firstname }}
 							</button>
 							<ul class="dropdown-menu dropdown-menu-lg-end">
-								<li><a href="{{ path('app_myitem') }}"class="dropdown-item">Mes objets en ligne</a></li>
-								<li><a href="{{ path('app_item_new') }}"class="dropdown-item">Ajouter un objet</a></li>
-								<li><a href="{{ path('app_item_track') }}"class="dropdown-item">Mon suivi</a></li>
+								<li><a href="{{ path('app_myprofile', {id:app.user.id}) }}"class="dropdown-item">Mes informations personnelles</a></li>
+								<li><a href="{{ path('app_myprofile_items') }}"class="dropdown-item">Mes objets en ligne</a></li>
+								<li><a href="{{ path('app_myprofile_newitem') }}"class="dropdown-item">Ajouter un objet</a></li>
+								<li><a href="{{ path('app_myprofile_itemtrack') }}"class="dropdown-item">Mon suivi</a></li>
+								<li><a href="{{ path('app_logout') }}"class="dropdown-item">Se déconnecter</a></li>
+							</ul>
+						</div>
+						{% elseif app.user and 'ROLE_ADMIN' in app.user.roles %}
+						<div class="btn-group">
+							<button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+								{{ app.user.firstname }}
+							</button>
+							<ul class="dropdown-menu dropdown-menu-lg-end">
+								<li><a href="{{ path('app_myprofile', {id:app.user.id}) }}"class="dropdown-item">Mes informations personnelles</a></li>
+								<li><a href="{{ path('app_admin_dashboard') }}"class="dropdown-item">Tableau de bord</a></li>
 								<li><a href="{{ path('app_logout') }}"class="dropdown-item">Se déconnecter</a></li>
 							</ul>
 						</div>
