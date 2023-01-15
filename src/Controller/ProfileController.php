@@ -13,6 +13,7 @@ use App\Repository\UserRepository;
 use DateTime;
 use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,23 +21,27 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ProfileController extends AbstractController {
 
+    #[Route('/user', name: 'app_current_user')]
+    public function getCurrentUser() {
+        /** @var User $user */
+        $user = $this->getUser();
+        return $user;
+    }
+
+
     #[Route('/mon-profil/{id}', requirements: ['id'=>'\d+'], name: 'app_myprofile')]
+    //#[Security("isgranted('ROLE_ADMIN') or is_granted('ROLE_USER')")]
     public function myProfile(User $user, Request $request, UserRepository $userRepository): Response
     {
-        /** @var User $user */
-        $currentUser = $this->getUser();
-      
-        if ($user != $currentUser|| !$this->isGranted('ROLE_ADMIN')) {
-            throw $this->createAccessDeniedException();
-        }
+
+        // if ($this->getCurrentUser() !== $user || !$this->isGranted('ROLE_ADMIN')) {
+        //     throw $this->createAccessDeniedException();
+        // }
         
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($user == null || !$user->getRoles('ROLE_ADMIN')) {
-                throw $this->createAccessDeniedException();
-            }
             $userRepository->add($user, true);
         }
 
@@ -91,6 +96,8 @@ class ProfileController extends AbstractController {
             }
             $item->setUserWhoOffer($user);
             $itemToBorrowRepository->add($item, true);
+            //todo : add a flash message to confirm user form has been send
+            return $this->redirectToRoute('app_myprofile_newitem', []);
         }
 
         return $this->renderForm('item/new.html.twig', [
@@ -112,7 +119,7 @@ class ProfileController extends AbstractController {
         }
         /** @var User $user */
         $user = $this->getUser();
-        return $this->redirectToRoute('app_myitem', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_myprofile_items', [], Response::HTTP_SEE_OTHER);
     }
 
     #[IsGranted('ROLE_USER')]

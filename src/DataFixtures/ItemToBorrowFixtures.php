@@ -98,10 +98,10 @@ class ItemToBorrowFixtures extends Fixture implements DependentFixtureInterface
         foreach (self::DATA as $key => $item) {
             $itemToBorrow = new ItemToBorrow();
             $itemToBorrow->setName($item['name']);
-            $itemToBorrow->setCategory($item['category']);
             $itemToBorrow->setDescription($item['description']);
             $itemToBorrow->setPicture($item['picture']);
             $itemToBorrow->setUserWhoOffer($this->getReference('user_' . $faker->numberBetween(0,4)));
+            $itemToBorrow->setCategoryType($this->getReference($item['category']));
             $this->addReference('itemToBorrow_' . $key, $itemToBorrow);
             $manager->persist($itemToBorrow);
         }
@@ -112,6 +112,7 @@ class ItemToBorrowFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             UserFixtures::class,
+            CategoryFixtures::class,
         ];
     }
 }

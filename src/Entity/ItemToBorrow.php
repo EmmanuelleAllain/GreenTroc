@@ -24,8 +24,8 @@ class ItemToBorrow
     #[Assert\NotBlank(message: 'Ce champ ne peut pas être vide')]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $category = null;
+    // #[ORM\Column(length: 255, nullable: true)]
+    // private ?string $category = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     #[Assert\NotBlank(message: 'Ce champ ne peut pas être vide')]
@@ -53,6 +53,10 @@ class ItemToBorrow
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updatedAt = null;
 
+    #[ORM\ManyToOne(inversedBy: 'item')]
+    #[ORM\JoinColumn(nullable: false)]
+    private Category $categoryType;
+
     public function __construct()
     {
         $this->borrows = new ArrayCollection();
@@ -75,17 +79,17 @@ class ItemToBorrow
         return $this;
     }
 
-    public function getCategory(): ?string
-    {
-        return $this->category;
-    }
+    // public function getCategory(): ?string
+    // {
+    //     return $this->category;
+    // }
 
-    public function setCategory(?string $category): self
-    {
-        $this->category = $category;
+    // public function setCategory(?string $category): self
+    // {
+    //     $this->category = $category;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getDescription(): ?string
     {
@@ -177,6 +181,18 @@ class ItemToBorrow
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getCategoryType(): ?Category
+    {
+        return $this->categoryType;
+    }
+
+    public function setCategoryType(?Category $categoryType): self
+    {
+        $this->categoryType = $categoryType;
 
         return $this;
     }

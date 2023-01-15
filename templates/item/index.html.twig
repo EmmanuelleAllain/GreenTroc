@@ -30,7 +30,7 @@
             </a>
             <div class="card-body">
                 <h3 class="card-title">{{ item.name }}</h3>
-                <p class="card-text">{{ item.category }}</p>
+                <p class="card-text">{{ item.categoryType.categoryName }}</p>
                 <a href="{{ path('app_item_show', {id:item.id}) }}" class="btn btn-primary">Plus de détails</a>
             </div>
         </div> 

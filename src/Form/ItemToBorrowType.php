@@ -20,15 +20,10 @@ class ItemToBorrowType extends AbstractType
             ->add('name', TypeTextType::class, [
                 'label' => 'Titre de l\'objet'
             ])
-            ->add('category', ChoiceType::class, [
-                'label' => 'Catégorie',
-                'choices' => [
-                    'Aucune' => null,
-                    'Bricolage' => 'Bricolage',
-                    'Puériculture' => 'Puériculture',
-                    'Cuisine' => 'Cuisine',
-                    'Divers' => 'Divers'
-                ]
+            //todo : secure the form so users cannot set category to null
+            ->add('categoryType', null, ['label' => 'Catégorie', 'choice_label' => function ($categoryType) {
+                return $categoryType->getCategoryName();
+            },
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'Description'
