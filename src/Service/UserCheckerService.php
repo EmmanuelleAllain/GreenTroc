@@ -19,7 +19,7 @@ class UserCheckerService implements UserCheckerInterface
         if ($user->getStatus() !== true) {
             // the message passed to this exception is meant to be displayed to the user
             throw new CustomUserMessageAccountStatusException('Votre compte est actuellement bloqué. 
-            Contactez l\'administrateur du site pour plus d\'informations/');
+            Contactez l\'administrateur du site pour plus d\'informations.');
         }
     }
 

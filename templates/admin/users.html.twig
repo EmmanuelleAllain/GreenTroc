@@ -4,14 +4,32 @@
 
 {% block body %}
 
+{% for category, messages in app.flashes %}
+    {% for message in messages %}
+    <div class="alert alert-{{ category }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+{% endfor %}
+
 {% for user in users %}
 <div class="container shadow rounded bg-light my-3">
-    <div class="row d-flex p-3">
+    <div class="row d-flex p-3">  
         <div class="col">
-        {# Todo : add id in profile route so the admin can see users' profile #}
             <p class="text bold">{{ user.lastname }} {{ user.firstname }} - Nombre d'objets en ligne : {{user.itemToBorrows | length}}</p>
-            <a href="{{ path('app_myprofile', {id:user.id}) }}"><button class="btn btn-secondary shadow">Voir le profil</button></a>
-            <button class="btn btn-danger shadow">Bloquer</button>
+            <a href="{{ path('app_myprofile', {id:user.id}) }}">
+                <button class="btn btn-secondary shadow">Voir le profil</button>
+            </a>
+            {% if user.status == true %}
+                <a href="{{ path('app_admin_block_user', {id:user.id}) }}">
+                    <button class="btn btn-danger shadow">Bloquer</button>
+                </a>
+            {% endif %}
+            {% if user.status == false %}
+                <a href="{{ path('app_admin_unblock_user', {id:user.id}) }}">
+                    <button class="btn btn-success shadow">Débloquer</button>
+                </a>
+            {% endif %}
         </div>
     </div>
 </div>

@@ -38,6 +38,17 @@ class UserFixtures extends Fixture
         $admin->setStatus(true);
         $manager->persist($admin);
 
+        $secondAdmin = new User();
+        $secondAdmin->setFirstname('second')
+                    ->setLastname('admin')
+                    ->setEmail('secondadmin@admin.fr')
+                    ->setRoles(['ROLE_ADMIN'])
+                    ->setPostcode(69001)
+                    ->setCity('Lyon')
+                    ->setStatus(true)
+                    ->setPassword($hashedPassword);
+        $manager->persist($secondAdmin);
+
         for ($i = 0; $i < 5; $i++) {
             $user = new User();
             $user->setFirstname($faker->firstName());

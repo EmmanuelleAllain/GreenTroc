@@ -18,36 +18,39 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\ExpressionLanguage\Expression;
 
 class ProfileController extends AbstractController {
 
-    #[Route('/user', name: 'app_current_user')]
-    public function getCurrentUser() {
-        /** @var User $user */
-        $user = $this->getUser();
-        return $user;
+        public function getCurrentUser() {
+            /** @var User $user **/
+            $user = $this->getUser();
+            return $user;
     }
 
-
     #[Route('/mon-profil/{id}', requirements: ['id'=>'\d+'], name: 'app_myprofile')]
-    //#[Security("isgranted('ROLE_ADMIN') or is_granted('ROLE_USER')")]
-    public function myProfile(User $user, Request $request, UserRepository $userRepository): Response
+    //#[Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_USER')")]
+    public function myProfile(User $ownerUser, Request $request, UserRepository $userRepository): Response
     {
 
-        // if ($this->getCurrentUser() !== $user || !$this->isGranted('ROLE_ADMIN')) {
-        //     throw $this->createAccessDeniedException();
-        // }
+        //   if ($this->getCurrentUser() !== $ownerUser || !$this->getCurrentUser()->getRoles(['ROLE_ADMIN'])) {
+        //       throw $this->createAccessDeniedException();
+        //  }
         
-        $form = $this->createForm(UserType::class, $user);
+        //  $this->denyAccessUnlessGranted(new Expression((
+        //       '"ROLE_ADMIN" in role_names or (user == ownerUser, ["ownerUser" => $ownerUser])'
+        //   )) );
+        
+        $form = $this->createForm(UserType::class, $ownerUser);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $userRepository->add($user, true);
+            $userRepository->add($ownerUser, true);
         }
 
         return $this->renderForm('profile/profile.html.twig', [
             'form' => $form,
-            'user' => $user
+            'user' => $ownerUser,
         ]);
     }
 
