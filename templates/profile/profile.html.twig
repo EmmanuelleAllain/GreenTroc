@@ -8,6 +8,9 @@
 
     {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
         {{ form_widget(form) }}
+        <div>
+        <button type="submit" class="btn btn-primary m-2">Enregistrer mes modifications</button>
+        </div>
     {{ form_end(form) }}
 </div>
 {% endblock %}

@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType as TypeTextType;
@@ -16,14 +17,21 @@ class UserType extends AbstractType
             ->add('email', TypeTextType::class, [
                 'label' => 'Adresse mail'
             ])
-            //->add('roles')
-            ->add('password')
-            ->add('firstname')
-            ->add('lastname')
-            ->add('address')
-            ->add('postcode')
-            ->add('city')
-            ->add('status')
+            ->add('firstname',TypeTextType::class, [
+                'label' => 'Nom de famille'
+            ])
+            ->add('lastname', TypeTextType::class, [
+                'label' => 'Prénom'
+            ])
+            ->add('address', TypeTextType::class, [
+                'label' => 'Adresse postale'
+            ])
+            ->add('postcode', NumberType::class, [
+                'label' => 'Code postal'
+            ])
+            ->add('city', TypeTextType::class, [
+                'label' => 'Ville'
+            ])
         ;
     }
 
