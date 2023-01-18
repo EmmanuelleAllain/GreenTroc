@@ -2,9 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Borrow;
-use App\Entity\Category;
-use App\Entity\ItemToBorrow;
 use App\Entity\User;
 use App\Repository\BorrowRepository;
 use App\Repository\CategoryRepository;
@@ -17,8 +14,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
 
-use function PHPUnit\Framework\throwException;
-
 class AdminController extends AbstractController
 {
     #[Route('/admin', name: 'app_admin_dashboard')]
@@ -26,22 +21,20 @@ class AdminController extends AbstractController
     {
         $users = $userRepository->findAll();
         $itemsToBorrow = $itemToBorrowRepository->findAll();
-        $borrows = $borrowRepository->findAll();
+        
+        // set data to use in chart doughnut
         $categories = $categoryRepository->findAll();
         $numberOfItemsByCategory = [];
         $categoryNames = [];
         foreach ($categories as $category) {
-            $numberOfItemsByCategory[] = count($category->getItem());
             $categoryNames[] = $category->getCategoryName();
+            $numberOfItemsByCategory[] = count($category->getItem());
         }
         $chart = $chartService->setDoughnutChart($chartBuilder, $categoryNames, $numberOfItemsByCategory);
 
-        
-        
         return $this->render('admin/dashboard.html.twig', [
             'users' => $users,
             'items' => $itemsToBorrow,
-            'borrows' => $borrows,
             'chart' => $chart,
         ]);
     }
@@ -49,7 +42,6 @@ class AdminController extends AbstractController
     #[Route('/admin/utilisateurs', name: 'app_admin_users_control')]
     public function usersControl(UserRepository $userRepository): Response
     {
-        // Todo : do not get the users with admin role
         $users = $userRepository->findUsersByRole('ROLE_USER');
 
         return $this->render('admin/users.html.twig', [
@@ -59,7 +51,7 @@ class AdminController extends AbstractController
 
     #[Route('/admin/blocage-utilisateur/{id}', name: 'app_admin_block_user')]
     public function blockUser(User $user, UserRepository $userRepository) {
-        // todo : create a new user with role admin and try to delete it to test it
+        // make sure user with admin role cannot be blocked
         if ($user->getRoles() !== ['ROLE_USER']) {
             $this->addFlash('warning', 'Vous ne pouvez pas bloquer un utilisateur ayant un rôle administrateur');
         }
@@ -72,7 +64,6 @@ class AdminController extends AbstractController
     
     #[Route('/admin/deblocage-utilisateur/{id}', name: 'app_admin_unblock_user')]
     public function unblockUser(User $user, UserRepository $userRepository) {
-        // todo : create a new user with role admin and try to delete it to test it
         if ($user->getRoles() !== ['ROLE_USER']) {
            $this->addFlash('warning', 'Vous ne pouvez pas débloquer un utilisateur ayant un rôle administrateur');
         }

@@ -13,7 +13,6 @@ use App\Repository\UserRepository;
 use DateTime;
 use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,10 +21,10 @@ use Symfony\Component\ExpressionLanguage\Expression;
 
 class ProfileController extends AbstractController {
 
-        public function getCurrentUser() {
-            /** @var User $user **/
-            $user = $this->getUser();
-            return $user;
+    public function getCurrentUser() {
+        /** @var User $user **/
+        $user = $this->getUser();
+        return $user;
     }
 
     #[Route('/mon-profil/{id}', requirements: ['id'=>'\d+'], name: 'app_myprofile')]
@@ -99,8 +98,8 @@ class ProfileController extends AbstractController {
             }
             $item->setUserWhoOffer($user);
             $itemToBorrowRepository->add($item, true);
-            //todo : add a flash message to confirm user form has been send
-            return $this->redirectToRoute('app_myprofile_newitem', []);
+            $this->addFlash('success', 'Bravo, votre nouvel objet a bien été ajouté à votre liste !');
+            return $this->redirectToRoute($request->attributes->get('_route'));
         }
 
         return $this->renderForm('item/new.html.twig', [

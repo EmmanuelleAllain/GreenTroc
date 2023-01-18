@@ -5,6 +5,14 @@
 <h2 class="text-center m-1">Vous avez un objet dont vous vous servez peu ? Postez-le sur la plateforme, il peut intéresser vos voisins !</h2>
 
 <div class="container-fluid">
+    {% for category, messages in app.flashes %}
+        {% for message in messages %}
+        <div class="alert alert-{{ category }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endfor %}
+
     {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
      <div class="row d-flex flex-column align-items-center">
         <div class="col-11 col-md-6">

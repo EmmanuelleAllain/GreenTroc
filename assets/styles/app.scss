@@ -16,6 +16,7 @@ body {
 
 h1 {
     color: $primary;
+    text-shadow: 1px 1px $light;
 }
 
 .header-img {
@@ -26,7 +27,7 @@ h1 {
 }
 
 .home-text {
-    background-color: rgba(255, 255, 255, 0.35);
+    background-color: $light;
 }
 
 @import "~bootstrap/scss/bootstrap";

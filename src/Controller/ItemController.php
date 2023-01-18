@@ -2,20 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\Borrow;
+
 use App\Entity\ItemToBorrow;
-use App\Entity\User;
-use App\Form\ItemToBorrowType;
-use App\Form\UserType;
 use App\Repository\BorrowRepository;
 use App\Repository\ItemToBorrowRepository;
-use App\Repository\UserRepository;
-use DateTime;
-use Exception;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -62,7 +54,7 @@ class ItemController extends AbstractController
         ]);
         $dates = [];
 
-        // remove from the array all the dates with refuse status, because they can be available
+        // remove from the array all the dates with refuse status, because they cannot be available
         for ($i = 0; $i < count($borrows); $i++) {
             if ($borrows[$i]->getStatus() === "Refusé") {
                 unset($borrows[$i]); 

@@ -13,7 +13,6 @@ class ChartService {
             'labels' => $labels,
             'datasets' => [
                 [
-                    'label' => 'Répartition par catégorie',
                     'backgroundColor' => [
                         "#397A8D",
                         "#091114",
