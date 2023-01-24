@@ -13,6 +13,7 @@ use App\Repository\UserRepository;
 use DateTime;
 use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,25 +22,10 @@ use Symfony\Component\ExpressionLanguage\Expression;
 
 class ProfileController extends AbstractController {
 
-    public function getCurrentUser() {
-        /** @var User $user **/
-        $user = $this->getUser();
-        return $user;
-    }
-
     #[Route('/mon-profil/{id}', requirements: ['id'=>'\d+'], name: 'app_myprofile')]
-    //#[Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_USER')")]
+    #[Security("user.getId() == ownerUser.getId() or is_granted('ROLE_ADMIN')")]
     public function myProfile(User $ownerUser, Request $request, UserRepository $userRepository): Response
-    {
-
-        //   if ($this->getCurrentUser() !== $ownerUser || !$this->getCurrentUser()->getRoles(['ROLE_ADMIN'])) {
-        //       throw $this->createAccessDeniedException();
-        //  }
-        
-        //  $this->denyAccessUnlessGranted(new Expression((
-        //       '"ROLE_ADMIN" in role_names or (user == ownerUser, ["ownerUser" => $ownerUser])'
-        //   )) );
-        
+    {  
         $form = $this->createForm(UserType::class, $ownerUser);
         $form->handleRequest($request);
 
@@ -132,7 +118,8 @@ class ProfileController extends AbstractController {
             $askedDate = new DateTime($_POST['askedDate']);
             $borrowsinprogress = $borrowRepository->findBy([
                 'borrowedItem' => $itemToBorrow,
-                'date' => $askedDate
+                'date' => $askedDate,
+                'status' => 'Validé'
             ]);
 
             if ($borrowsinprogress != null) {

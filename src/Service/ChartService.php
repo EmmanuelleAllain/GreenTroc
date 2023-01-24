@@ -25,6 +25,18 @@ class ChartService {
                 ],
             ],
         ]);
+        $chart->setOptions([
+            'plugins' => [
+                'title' => [
+                    'display' => true,
+                    'text' => 'Répartition des objets par catégorie',
+                ],
+                'legend' => [
+                    'display' => true,
+                    'position' => 'left'
+                ]
+            ]
+        ]);
         return $chart;
     }
 }
