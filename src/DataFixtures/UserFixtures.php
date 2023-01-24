@@ -36,6 +36,7 @@ class UserFixtures extends Fixture
         $admin->setPostcode(69003);
         $admin->setCity('Lyon');
         $admin->setStatus(true);
+        $admin->setCreated($faker->dateTimeBetween('-3 years', '-1 week'));
         $manager->persist($admin);
 
         $secondAdmin = new User();
@@ -46,6 +47,7 @@ class UserFixtures extends Fixture
                     ->setPostcode(69001)
                     ->setCity('Lyon')
                     ->setStatus(true)
+                    ->setCreated($faker->dateTimeBetween('-3 years', '-1 week'))
                     ->setPassword($hashedPassword);
         $manager->persist($secondAdmin);
 
@@ -66,6 +68,7 @@ class UserFixtures extends Fixture
             $user->setPostcode($faker->randomElement([69003, 69006, 69100]));
             $user->setCity($faker->randomElement(['Lyon', 'Villeurbanne']));
             $user->setStatus(true);
+            $user->setCreated($faker->dateTimeBetween('-3 years', 'now'));
             $this->addReference('user_' . $i, $user);
 
             $manager->persist($user);

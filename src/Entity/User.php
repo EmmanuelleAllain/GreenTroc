@@ -3,8 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -58,6 +60,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(nullable: false)]
     private bool $status;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable:true)]
+    private ?\DateTimeInterface $created = null;
 
     #[ORM\OneToMany(mappedBy: 'userWhoOffer', targetEntity: ItemToBorrow::class, orphanRemoval: true)]
     private Collection $itemToBorrows;
@@ -277,6 +282,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setStatus($status)
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of created
+     */ 
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set the value of created
+     *
+     * @return  self
+     */ 
+    public function setCreated($created)
+    {
+        $this->created = $created;
 
         return $this;
     }

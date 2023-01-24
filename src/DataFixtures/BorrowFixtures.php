@@ -17,7 +17,7 @@ class BorrowFixtures extends Fixture implements DependentFixtureInterface
                 for ($k = 0; $k < 13; $k++) {
                     for ($j = 0; $j < 5; $j++) {
                         $borrow = new Borrow();
-                        $borrow->setDate($faker->dateTimeBetween('-1 week', '+4 week'));
+                        $borrow->setDate($faker->dateTimeBetween('-1 year', '+2 months'));
                         $borrow->setBorrowedItem($this->getReference('itemToBorrow_' . $k));
                         $borrow->setUserWhoBorrow($this->getReference('user_' . $j));
                         $borrow->setStatus($faker->randomElement([
