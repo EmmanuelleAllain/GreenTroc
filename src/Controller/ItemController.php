@@ -2,12 +2,15 @@
 
 namespace App\Controller;
 
-
+use App\Entity\Borrow;
 use App\Entity\ItemToBorrow;
+use App\Entity\User;
+use App\Form\RequestDateType;
 use App\Repository\BorrowRepository;
 use App\Repository\ItemToBorrowRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -37,11 +40,36 @@ class ItemController extends AbstractController
     }
 
     #[Route('/objet/{id}', name: 'app_item_show')]
-    public function show(ItemToBorrow $itemToBorrow): Response
+    public function show(ItemToBorrow $itemToBorrow, Request $request, BorrowRepository $borrowRepository): Response
     {
+        $form = $this->createForm(RequestDateType::class);
+        $form->handleRequest($request);
 
-        return $this->render('item/show.html.twig', [
+        if ($form->isSubmitted() && $form->isValid()) {
+            $askedDate = $form->getData()['askedDate'];
+            // Todo : add validation if item is already borrowed
+            // $borrowsinprogress = $borrowRepository->findBy([
+            //     'borrowedItem' => $itemToBorrow,
+            //     'date' => $askedDate,
+            //     'status' => 'Validé'
+            // ]);
+
+            // if ($borrowsinprogress !== null) {
+            //     $this->addFlash('warning', 'Cette date n\'est pas disponible, veuillez en choisir une autre.');
+            // } else {
+            $borrow = new Borrow;
+            $borrow->setDate($askedDate);
+            /** @var User $user */
+            $user = $this->getUser();
+            $borrow->setUserWhoBorrow($user);
+            $borrow->setBorrowedItem($itemToBorrow);
+            $borrow->setStatus('En attente');
+            $borrowRepository->add($borrow, true);
+            $this->addFlash('success', 'Votre demande a été envoyée au propriétaire, il peut maintenant l\'accepter ou la refuser.') == null;
+        }
+        return $this->renderForm('item/show.html.twig', [
             'item' => $itemToBorrow,
+            'form' => $form,
         ]);
     }
 

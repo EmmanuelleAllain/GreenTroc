@@ -34,7 +34,7 @@ class ItemToBorrowFixtures extends Fixture implements DependentFixtureInterface
             [
                 'name' => 'Escabeau',
                 'category' => 'Bricolage',
-                'description' => 'Escabeau 10 marches, permet d\atteindre un plafond de taille standard.',
+                'description' => 'Escabeau 10 marches, permet d\'atteindre un plafond de taille standard.',
                 'picture' => 'escabeau.jpg',
             ],
             [
@@ -52,7 +52,7 @@ class ItemToBorrowFixtures extends Fixture implements DependentFixtureInterface
             [
                 'name' => 'Parasol',
                 'category' => 'Jardin',
-                'description' => 'Je prête ce parasol, je l\utilise peu depuis que j\ai installé un auvent sur ma terrasse (j\en ai besoin uniquement quand je reçois beaucoup de monde). Il se fixe au milieu d\une table ou avec un pied lesté (prévoir d\être 2 pour porter).',
+                'description' => 'Je prête ce parasol, je l\'utilise peu depuis que j\ai installé un auvent sur ma terrasse (j\en ai besoin uniquement quand je reçois beaucoup de monde). Il se fixe au milieu d\une table ou avec un pied lesté (prévoir d\être 2 pour porter).',
                 'picture' => 'parasol.jpg',
             ],
             [
@@ -76,7 +76,7 @@ class ItemToBorrowFixtures extends Fixture implements DependentFixtureInterface
             [
                 'name' => 'Scie circulaire',
                 'category' => 'Bricolage',
-                'description' => 'Scie circulaire achetée l\année dernière, facile à utiliser et sécurisée.',
+                'description' => 'Scie circulaire achetée l\'année dernière, facile à utiliser et sécurisée.',
                 'picture' => 'scie_circulaire.jpg',
             ],
             [
@@ -88,7 +88,7 @@ class ItemToBorrowFixtures extends Fixture implements DependentFixtureInterface
             [
                 'name' => 'Scie à métaux',
                 'category' => 'Bricolage',
-                'description' => 'Hyper pratique, ça demande un peu d\entraînement mais on peut faire des trucs sympas avec',
+                'description' => 'Hyper pratique, ça demande un peu d\'entraînement mais on peut faire des trucs sympas avec',
                 'picture' => 'scie_metaux.jpg',
             ],
         ];

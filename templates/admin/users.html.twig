@@ -12,25 +12,26 @@
     {% endfor %}
 {% endfor %}
 
+<h1 class="text-center m-2">Liste des utilisateurs</h1>
 {% for user in users %}
 <div class="container shadow rounded bg-light my-3">
-    <div class="row d-flex p-3">  
-        <div class="col">
-            <p class="text bold">{{ user.lastname }} {{ user.firstname }} - Nombre d'objets en ligne : {{user.itemToBorrows | length}}</p>
-            <a href="{{ path('app_myprofile', {id:user.id}) }}">
-                <button class="btn btn-secondary shadow">Voir le profil</button>
-            </a>
-            {% if user.status == true %}
-                <a href="{{ path('app_admin_block_user', {id:user.id}) }}">
-                    <button class="btn btn-danger shadow">Bloquer</button>
-                </a>
-            {% endif %}
-            {% if user.status == false %}
-                <a href="{{ path('app_admin_unblock_user', {id:user.id}) }}">
-                    <button class="btn btn-success shadow">Débloquer</button>
-                </a>
-            {% endif %}
-        </div>
+    <div class="row d-flex flex-column flex-md-row align-items-md-center p-3">  
+        <p class="col text-bold">{{ user.lastname }} {{ user.firstname }}</p>
+        <p class="col">Nombre d'objets en ligne : {{user.itemToBorrows | length}}</p>
+        <p class="col">Date d'inscription : {{ user.created | date('d-m-Y') }}</p>
+        <a class="col" href="{{ path('app_myprofile', {id:user.id}) }}">
+            <button class="btn btn-secondary shadow">Voir le profil</button><!-- @whitespace
+        --></a>
+        {% if user.status == true %}
+        <a class="col" href="{{ path('app_admin_block_user', {id:user.id}) }}">
+            <button class="btn btn-danger shadow">Bloquer</button>
+        </a>
+        {% endif %}
+        {% if user.status == false %}
+        <a class="col" href="{{ path('app_admin_unblock_user', {id:user.id}) }}">
+            <button class="btn btn-success shadow">Débloquer</button>
+        </a>
+        {% endif %}
     </div>
 </div>
 {% endfor %}

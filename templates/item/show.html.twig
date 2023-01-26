@@ -17,15 +17,20 @@
             <p class="text-center">Cet article est proposé par 
             {{ item.userWhoOffer.firstname }} {{ item.userWhoOffer.lastname }}</p>
             <p class="text-center">{{ item.userWhoOffer.address }} {{ item.userWhoOffer.postcode }} {{ item.userWhoOffer.city }}</p>
-            <form class="container" action="{{ path('app_item_ask', {id:item.id})}}" method="post">
-                <div class="row d-flex justify-content-center">
-                    <p class="text-center">Il vous intéresse ? Faites vite une demande pour savoir s'il est disponible !</p>
-                </div>
-                <div class="row d-flex justify-content-center">
+            
+            {{ form_start(form) }}
+            <div class="row d-flex justify-content-center">
+                <p class="text-center">Il vous intéresse ? Faites vite une demande pour savoir s'il est disponible !</p>
+                {{ form_row(form.askedDate, {'attr': {'class': 'col-4 m-1'}}) }}
+                <button class="col-4 m-1 btn btn-primary" type="submit">Faire une demande</button>
+            </div>
+            {{ form_end(form) }}
+                
+                {# <div class="row d-flex justify-content-center">
                     <input class="col-4 m-1" name="askedDate" id="calendar-input" type="date"></input>
                     <button class="col-4 m-1 btn btn-primary" type="submit">Faire une demande</button>
-                </div>
-            </form>
+                </div> #}
+   
             {% for category, messages in app.flashes %}
                 {% for message in messages %}
                 <div class="alert alert-{{ category }}">

@@ -15,11 +15,11 @@ class ChartService {
                 [
                     'backgroundColor' => [
                         "#397A8D",
+                        "#1CD6CE",
+                        "#D61C4E",
+                        "#FEDB39",
                         "#091114",
                         "#326878",
-                        "#112228",
-                        "#2A5764",
-                        "#1A343B",
                     ],
                     'data' => $data,
                 ],
