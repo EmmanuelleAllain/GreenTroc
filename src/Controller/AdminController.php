@@ -60,7 +60,6 @@ class AdminController extends AbstractController
             'users' => $users,
             'items' => $itemsToBorrow,
             'doughnutChart' => $doughnutChart,
-            //'borrows' => $occurrenciesPerMonth,
             'lineChart' => $lineChart,
         ]);
     }

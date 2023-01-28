@@ -28,6 +28,8 @@
     </div>  
 </div>
 
+{% include "_searchblock.html.twig" %}
+
 <div class="container-fluid">
     <div class="row d-flex justify-content-center">
         <div class="col-3 d-flex flex-column align-items-center justify-content-center m-2">
@@ -45,4 +47,8 @@
     </div>
 </div>
 
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('search') }}
 {% endblock %}
