@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Borrow;
 use App\Entity\ItemToBorrow;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -38,6 +39,19 @@ class BorrowRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+    
+    public function findByYear(int $year): array
+    {
+        return $this->createQueryBuilder('b')
+            ->select('b.date')
+            ->andWhere('b.date BETWEEN :start AND :end')
+            ->setParameter('start', new DateTime($year . '-01-01'))
+            ->setParameter('end', new DateTime($year . '-12-31'))
+            ->orderBy('b.date', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
     }
 
 //    /**

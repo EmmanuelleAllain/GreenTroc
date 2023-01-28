@@ -15,7 +15,10 @@
             <p class="text-center fw-bold">{{ users | length}}</p>
         </div>
         <div class="shadow rounded w-md-50 p-3">
-        {{ render_chart(chart) }}
+        {{ render_chart(doughnutChart) }}
+        </div>
+        <div class="shadow rounded w-md-50 p-3">
+        {{ render_chart(lineChart) }}
         </div>
     </div>
 </div>

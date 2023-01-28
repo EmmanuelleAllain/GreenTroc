@@ -39,4 +39,31 @@ class ChartService {
         ]);
         return $chart;
     }
+
+    public function setLineChart(ChartBuilderInterface $chartBuilder, array $data) {
+        $chart = $chartBuilder->createChart(CHART::TYPE_LINE);
+        $chart->setData([
+            'labels' => [
+                'Janvier', 'Février', 'Mars','Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
+            ],
+            'datasets' => [
+                [
+                    'label' => 'Nombre de prêts',
+                    'backgroundColor' => [
+                        "#397A8D",
+                    ],
+                    'data' => $data,
+                ],
+            ],
+        ]);
+        $chart->setOptions([
+            'plugins' => [
+                'title' => [
+                    'display' => true,
+                    'text' => 'Evolution des prêts en 2022',
+                ],
+            ]
+        ]);
+        return $chart;
+    }
 }

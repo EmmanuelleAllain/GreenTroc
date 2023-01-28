@@ -30,12 +30,38 @@ class AdminController extends AbstractController
             $categoryNames[] = $category->getCategoryName();
             $numberOfItemsByCategory[] = count($category->getItem());
         }
-        $chart = $chartService->setDoughnutChart($chartBuilder, $categoryNames, $numberOfItemsByCategory);
+        $borrowDates = $borrowRepository->findByYear(2022);
+        //$months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+        $occurrenciesPerMonth = [
+            '01' => 0,
+            '02' => 0, 
+            '03' => 0,
+            '04' => 0,
+            '05' => 0,
+            '06' => 0,
+            '07' => 0,
+            '08' => 0,
+            '09' => 0,
+            '10' => 0,
+            '11' => 0,
+            '12' => 0,
+        ];
+            foreach ($borrowDates as $borrowDate) {
+                foreach ($borrowDate as $finalDate) {
+                    $occurrenciesPerMonth[$finalDate->format('m')]++;
+                }
+            }
+            $values = array_values($occurrenciesPerMonth);
+
+        $doughnutChart = $chartService->setDoughnutChart($chartBuilder, $categoryNames, $numberOfItemsByCategory);
+        $lineChart = $chartService->setLineChart($chartBuilder, $values);
 
         return $this->render('admin/dashboard.html.twig', [
             'users' => $users,
             'items' => $itemsToBorrow,
-            'chart' => $chart,
+            'doughnutChart' => $doughnutChart,
+            //'borrows' => $occurrenciesPerMonth,
+            'lineChart' => $lineChart,
         ]);
     }
 
