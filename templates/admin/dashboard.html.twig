@@ -6,23 +6,21 @@
 
 <h1 class="text-center m-2">Tableau de bord</h1>
 
-<div class="container">
-    <div class="d-flex flex-column flex-md-row justify-content-around align-items-center align-items-md-start m-2">
-        <div class="shadow rounded bg-secondary p-3">
+<div class="container-fluid">
+    <div class="row d-flex flex-column flex-md-row justify-content-center align-items-center align-items-lg-end mt-5 m-2">
+        <div class="col shadow rounded bg-secondary p-3 p-md-2 m-2">
             <p class="text-center">Nombre d'objets sur la plateforme</p>
             <p class="text-center fw-bold">{{ items | length}}</p>
             <p class="text-center">Nombre d'utilisateurs inscrits</p>
             <p class="text-center fw-bold">{{ users | length}}</p>
         </div>
-        <div class="shadow rounded w-md-50 p-3">
-        {{ render_chart(doughnutChart) }}
+        <div class="col col-md-8 col-lg-4 shadow bg-light rounded p-3 p-md-2 m-2">
+            {{ render_chart(doughnutChart) }}
         </div>
-        <div class="shadow rounded w-md-50 p-3">
-        {{ render_chart(lineChart) }}
+        <div class="col col-md-12 col-lg-6 shadow rounded bg-light p-3 p-md-2 m-2">
+            {{ render_chart(lineChart) }}
         </div>
     </div>
 </div>
-
-
 
 {% endblock %}
