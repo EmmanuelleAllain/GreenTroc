@@ -22,6 +22,7 @@ class ItemController extends AbstractController
         return $this->render('home.html.twig');
     }
 
+    //todo : try to make the search by keyword in one route, using defaults : @Route("/blog/{keyword}", defaults={"keyword"="keyword})
     #[Route('/tous-les-objets', name: 'app_item')]
     public function index(ItemToBorrowRepository $itemToBorrowRepository): Response
     {

@@ -20,6 +20,7 @@ keyword.addEventListener('input', function(e){
 
 // todo : add window.location to redirect to tous/les/objets if not already (homepage block)
 searchButton.addEventListener('click', function(e){
+    //window.location.href = '/tous-les-objets/';
     fetch('/tous-les-objets/' + document.getElementById('keyword').value)
     .then(response => response.json())
     .then((data) => {

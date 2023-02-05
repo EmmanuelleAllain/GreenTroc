@@ -28,7 +28,16 @@
     </div>  
 </div>
 
-{% include "_searchblock.html.twig" %}
+<div class="container shadow rounded w-75 bg-secondary mx-auto my-3">
+    <div  class="row d-flex flex-column flex-md-row justify-content-center align-items-center p-3">
+        <div class="col-12 col-md-7">
+            <p class="mb-0 text-center">Vous chercher un objet à emprunter ? Matériel de bricolage, puériculture, outils de jardin... C'est par ici !</p>
+        </div>
+        <div class="col-10 col-md-3 my-1">
+            <a href="{{path('app_item')}}" class="btn btn-primary shadow">Rechercher</a>
+        </div>
+    </div>
+</div>
 
 <div class="container-fluid">
     <div class="row d-flex justify-content-center">
@@ -48,7 +57,3 @@
 </div>
 
 {% endblock %}
-
-{# {% block javascripts %}
-    {{ encore_entry_script_tags('search') }}
-{% endblock %} #}

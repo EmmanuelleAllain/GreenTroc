@@ -10,7 +10,7 @@
 <div class="container mt-3">
     <div class="row d-flex justify-content-center" id="card-container">
     {% for item in items %}
-        <div class="card shadow col-5 col-md-3 m-2" id="{{ item.id }}">
+        <div class="card shadow col-10 col-sm-5 col-md-3 m-2" id="{{ item.id }}">
             <a href="{{ path('app_item_show', {id:item.id}) }}">
                 <img src="../uploads/{{ item.picture }}" class="card-img-top mt-2" alt="photo de l'objet">
             </a>
@@ -26,5 +26,6 @@
 {% endblock %}
 
 {% block javascripts %}
+    {{ parent() }}
     {{ encore_entry_script_tags('search') }}
 {% endblock %}
