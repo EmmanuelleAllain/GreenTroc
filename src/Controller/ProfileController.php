@@ -144,7 +144,7 @@ class ProfileController extends AbstractController {
     {
         $borrow->setStatus('Validé');
         $borrowRepository->add($borrow, true);
-        return $this->redirectToRoute('app_item_track');
+        return $this->redirectToRoute('app_myprofile_itemtrack');
     }
 
     #[Route('/mon-profil/refus/{id}', name: 'app_item_refusal')]
@@ -152,7 +152,7 @@ class ProfileController extends AbstractController {
     {
         $borrow->setStatus('Refusé');
         $borrowRepository->add($borrow, true);
-        return $this->redirectToRoute('app_item_track');
+        return $this->redirectToRoute('app_myprofile_itemtrack');
     }
 
 }
