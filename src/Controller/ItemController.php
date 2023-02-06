@@ -47,6 +47,11 @@ class ItemController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var User $user */
+            $user = $this->getUser();
+            if ($user == null) {
+                return $this->redirectToRoute('app_login');
+            }
             $askedDate = $form->getData()['askedDate'];
             // Todo : add validation if item is already borrowed
             // $borrowsinprogress = $borrowRepository->findBy([
@@ -60,8 +65,7 @@ class ItemController extends AbstractController
             // } else {
             $borrow = new Borrow;
             $borrow->setDate($askedDate);
-            /** @var User $user */
-            $user = $this->getUser();
+            
             $borrow->setUserWhoBorrow($user);
             $borrow->setBorrowedItem($itemToBorrow);
             $borrow->setStatus('En attente');

@@ -31,7 +31,6 @@ class AdminController extends AbstractController
             $numberOfItemsByCategory[] = count($category->getItem());
         }
         $borrowDates = $borrowRepository->findByYear(2022);
-        //$months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
         $occurrenciesPerMonth = [
             '01' => 0,
             '02' => 0, 
