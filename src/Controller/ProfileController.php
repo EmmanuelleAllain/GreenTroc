@@ -110,34 +110,34 @@ class ProfileController extends AbstractController {
         return $this->redirectToRoute('app_myprofile_items', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[IsGranted('ROLE_USER')]
-    #[Route('/ma-demande/objet/{id}', name: 'app_item_ask')]
-    public function ask(ItemToBorrow $itemToBorrow, BorrowRepository $borrowRepository): Response
-    {
-        if(isset($_POST['askedDate'])) {
-            $askedDate = new DateTime($_POST['askedDate']);
-            $borrowsinprogress = $borrowRepository->findBy([
-                'borrowedItem' => $itemToBorrow,
-                'date' => $askedDate,
-                'status' => 'Validé'
-            ]);
+    // #[IsGranted('ROLE_USER')]
+    // #[Route('/ma-demande/objet/{id}', name: 'app_item_ask')]
+    // public function ask(ItemToBorrow $itemToBorrow, BorrowRepository $borrowRepository): Response
+    // {
+    //     if(isset($_POST['askedDate'])) {
+    //         $askedDate = new DateTime($_POST['askedDate']);
+    //         $borrowsinprogress = $borrowRepository->findBy([
+    //             'borrowedItem' => $itemToBorrow,
+    //             'date' => $askedDate,
+    //             'status' => 'Validé'
+    //         ]);
 
-            if ($borrowsinprogress != null) {
-                $this->addFlash('warning', 'Cette date n\'est pas disponible, veuillez en choisir une autre.');
-            } else {
-                $borrow = new Borrow();
-                $borrow->setDate($askedDate);
-                /** @var User $user */
-                $user = $this->getUser();
-                $borrow->setUserWhoBorrow($user);
-                $borrow->setBorrowedItem($itemToBorrow);
-                $borrow->setStatus('En attente');
-                $borrowRepository->add($borrow, true);
-                $this->addFlash('success', 'Votre demande a été envoyée au propriétaire, il peut maintenant l\'accepter ou la refuser.') == null;
-            }
-        }
-        return $this->redirectToRoute('app_item_show', ['id' => $itemToBorrow->getId()]);
-    }
+    //         if ($borrowsinprogress != null) {
+    //             $this->addFlash('warning', 'Cette date n\'est pas disponible, veuillez en choisir une autre.');
+    //         } else {
+    //             $borrow = new Borrow();
+    //             $borrow->setDate($askedDate);
+    //             /** @var User $user */
+    //             $user = $this->getUser();
+    //             $borrow->setUserWhoBorrow($user);
+    //             $borrow->setBorrowedItem($itemToBorrow);
+    //             $borrow->setStatus('En attente');
+    //             $borrowRepository->add($borrow, true);
+    //             $this->addFlash('success', 'Votre demande a été envoyée au propriétaire, il peut maintenant l\'accepter ou la refuser.') == null;
+    //         }
+    //     }
+    //     return $this->redirectToRoute('app_item_show', ['id' => $itemToBorrow->getId()]);
+    // }
 
     #[Route('/mon-profil/validation/{id}', name: 'app_item_validation')]
     public function valid(Borrow $borrow, BorrowRepository $borrowRepository): Response
