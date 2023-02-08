@@ -9,11 +9,17 @@ keyword.addEventListener('input', function(e){
     .then((data) => {
         for (let i = 0; i < cards.length; i++) {
             cards[i].classList.add('d-none');
+            //let hasFoundCard = false;
             for (let j = 0; j < data.length; j++) {
                 if (data[j] == cards[i].id) {
                     cards[i].classList.remove('d-none');
+                    // hasFoundCard = true;
+                    // break;
                 }
-            } 
+            }
+            // if (hasFoundCard == false) {
+            //     cards[i].classList.add('d-none');
+            // }
         }
      })
  })

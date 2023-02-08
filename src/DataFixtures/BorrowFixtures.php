@@ -14,7 +14,7 @@ class BorrowFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');
-                for ($k = 0; $k < 13; $k++) {
+                for ($k = 0; $k < 16; $k++) {
                     for ($j = 0; $j < 5; $j++) {
                         $borrow = new Borrow();
                         $borrow->setDate($faker->dateTimeBetween('-1 year', '+2 months'));

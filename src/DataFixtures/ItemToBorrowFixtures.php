@@ -20,10 +20,28 @@ class ItemToBorrowFixtures extends Fixture implements DependentFixtureInterface
                 'picture' => 'perceuse.jpg',
             ],
             [
+                'name' => 'Rouleaux à peinture',
+                'category' => 'Bricolage',
+                'description' => '2 rouleaux, un petit et un moyens, en bon état',
+                'picture' => 'rouleaux.jpg',
+            ],
+            [
                 'name' => 'Poussette',
                 'category' => 'Puériculture',
                 'description' => 'Cette poussette est équipée d\'un cosy et d\'une nacelle pour les nourrissons. Possibilité de fournir la protection de pluie également.',
                 'picture' => 'poussette.jpg',
+            ],
+            [
+                'name' => 'Outils divers',
+                'category' => 'Bricolage',
+                'description' => 'J\'ai pas mal d\'outils que je peux mettre à disposition (voir photo).',
+                'picture' => 'divers_outils.jpg',
+            ],
+            [
+                'name' => 'Peinture à l\'huile',
+                'category' => 'Divers',
+                'description' => 'Je pratique la peinture à l\'huile depuis plusieurs années, je peux vous prêter tout le nécessaire pour tester : les couteaux, les pinceaux, la térébenthine et quelques tubes de couleurs.',
+                'picture' => 'peinture_huile.jpg',
             ],
             [
                 'name' => 'Kit de peinture',
@@ -70,7 +88,7 @@ class ItemToBorrowFixtures extends Fixture implements DependentFixtureInterface
             [
                 'name' => 'Fer à souder',
                 'category' => 'Bricolage',
-                'description' => 'Hyper pratique pour les petites réparations d\électronique.',
+                'description' => 'Hyper pratique pour les petites réparations d\'électronique.',
                 'picture' => 'fer_a_souder.jpg',
             ],
             [

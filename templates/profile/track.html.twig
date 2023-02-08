@@ -1,6 +1,7 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
+
 <div class="accordion m-3" id="accordionExample">
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingOne">
@@ -11,19 +12,21 @@
     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
       <div class="accordion-body">
         {% for item in items %}
-          {% for borrow in item.borrows %}
-          <div class="row d-flex justify-content-between">
-            <h3 class="col-3">{{ borrow.borrowedItem.name }}</h3>
-            <p class="col-2">{{ borrow.date | format_date('full',locale='fr')}}</p> {# this throws an error, need to be fixed | format_date('full',locale='fr') #} 
-            <p class="col-2">{{ borrow.userWhoBorrow.firstname }} {{ borrow.userWhoBorrow.lastname | slice(0,1) }}.</p>
-            <p class="col-2">{{ borrow.status }}</p>
-            <div class="col-3">
-            {% if borrow.status == 'En attente' %}
-            <a href="{{ path('app_item_validation', {id: borrow.id}) }}"><button class="btn btn-primary">Valider</button></a>
-            <a href="{{ path('app_item_refusal', {id: borrow.id}) }}"><button class="btn btn-danger">Refuser</button></a>
-            {% endif %}
+          {% for borrow in item.borrows |sort((a, b) => a.date <=> b.date) %} {# todo : fix sort problem #}
+           {% if date(borrow.date) > date("now") %}
+            <div class="row d-flex justify-content-between">
+              <h3 class="col-3">{{ borrow.borrowedItem.name }}</h3>
+              <p class="col-2">{{ borrow.date | format_date('full',locale='fr')}}</p> {# this throws an error, need to be fixed | format_date('full',locale='fr') #} 
+              <p class="col-2">{{ borrow.userWhoBorrow.firstname }} {{ borrow.userWhoBorrow.lastname | slice(0,1) }}.</p>
+              <p class="col-2">{{ borrow.status }}</p>
+              <div class="col-3">
+              {% if borrow.status == 'En attente' %}
+              <a href="{{ path('app_item_validation', {id: borrow.id}) }}"><button class="btn btn-primary">Valider</button></a>
+              <a href="{{ path('app_item_refusal', {id: borrow.id}) }}"><button class="btn btn-danger">Refuser</button></a>
+              {% endif %}
+              </div>
             </div>
-          </div>
+            {% endif %} 
           {% endfor %}
         {% endfor %}
       </div>
@@ -38,24 +41,26 @@
     <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
       <div class="accordion-body container-fluid">
         {% for borrow in borrows %}
-        <div class="row d-flex justify-content-between">
-          <h3 class="col-3">{{ borrow.borrowedItem.name }}</h3>
-          <p class="col-2">{{ borrow.date | format_date('full',locale='fr')}}</p>
-          {% if borrow.status == 'Validé' %}<p class="col-2 badge bg-primary">
-          {% elseif borrow.status == 'Refusé' %}<p class="col-2 badge bg-danger">
-          {% elseif borrow.status == 'En attente' %}<p class="col-2 badge bg-warning">
-          {% endif %}{{ borrow.status }}</p>
-        </div>
-        <div class="row">
-          <p>Propriétaire de l'objet : {{ borrow.borrowedItem.userWhoOffer.firstname }} {{ borrow.borrowedItem.userWhoOffer.firstname }}</p>
-          <p>Adresse où récupérer l'objet : {{ borrow.borrowedItem.userWhoOffer.address }} {{ borrow.borrowedItem.userWhoOffer.postcode }} {{ borrow.borrowedItem.userWhoOffer.city }}<p>
-          <hr>
-        </div>
+          {% if date(borrow.date) > date("now") %}
+          <div class="row d-flex justify-content-between">
+            <h3 class="col-3">{{ borrow.borrowedItem.name }}</h3>
+            <p class="col-2">{{ borrow.date | format_date('full',locale='fr')}}</p>
+            {% if borrow.status == 'Validé' %}<p class="col-2 badge bg-primary">
+            {% elseif borrow.status == 'Refusé' %}<p class="col-2 badge bg-danger">
+            {% elseif borrow.status == 'En attente' %}<p class="col-2 badge bg-warning">
+            {% endif %}{{ borrow.status }}</p>
+          </div>
+          <div class="row">
+            <p>Propriétaire de l'objet : {{ borrow.borrowedItem.userWhoOffer.firstname }} {{ borrow.borrowedItem.userWhoOffer.firstname }}</p>
+            <p>Adresse où récupérer l'objet : {{ borrow.borrowedItem.userWhoOffer.address }} {{ borrow.borrowedItem.userWhoOffer.postcode }} {{ borrow.borrowedItem.userWhoOffer.city }}<p>
+            <hr>
+          </div>
+          {% endif %}
         {% endfor %}
       </div>
     </div>
   </div>
-  <div class="accordion-item">
+  {# <div class="accordion-item">
     <h2 class="accordion-header" id="headingThree">
       <button class="accordion-button collapsed bg-primary text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
         Historique de mes prêts et emprunts
@@ -66,5 +71,5 @@
       </div>
     </div>
   </div>
-</div>
+</div> #}
 {% endblock %}
