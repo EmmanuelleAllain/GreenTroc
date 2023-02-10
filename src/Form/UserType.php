@@ -18,10 +18,10 @@ class UserType extends AbstractType
                 'label' => 'Adresse mail'
             ])
             ->add('firstname',TypeTextType::class, [
-                'label' => 'Nom de famille'
+                'label' => 'Prénom'
             ])
             ->add('lastname', TypeTextType::class, [
-                'label' => 'Prénom'
+                'label' => 'Nom de famille'
             ])
             ->add('address', TypeTextType::class, [
                 'label' => 'Adresse postale'
